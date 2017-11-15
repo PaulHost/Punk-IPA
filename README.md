@@ -20,3 +20,9 @@ An app on top of PUNK API: https://punkapi.com/documentation/v2
 1. Native application
 2. Target SDK version: 26
 3. Gradle and Android Studio
+
+# used libraries
+
+✓ Retrofit 2
+
+✓ Gson

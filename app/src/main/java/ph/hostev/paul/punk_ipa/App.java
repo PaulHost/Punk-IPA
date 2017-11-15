@@ -7,7 +7,7 @@ import ph.hostev.paul.punk_ipa.api.PunkApi;
 
 public class App extends Application {
 
-    private APIClient client;
+    private static APIClient client;
 
     @Override
     public void onCreate() {
@@ -15,7 +15,7 @@ public class App extends Application {
         client = APIClient.getInstance();
     }
 
-    public PunkApi getAPI() {
+    public static PunkApi getAPI() {
         return client.getPunkApi();
     }
 }

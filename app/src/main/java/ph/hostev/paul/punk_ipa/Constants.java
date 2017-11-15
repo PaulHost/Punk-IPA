@@ -3,8 +3,8 @@ package ph.hostev.paul.punk_ipa;
 public class Constants {
 
     /* URL */
-    public static final String ROOT_URL = "https://api.punkapi.com/v2/";
-    public static final String BEER = "/beer/";
+    public static final String ROOT_URL = "https://api.punkapi.com/";
+    public static final String BEER = "/v2/beers";
     public static final String PAGE = "?page={page}";
 
     /* PARAMETERS for sort */
