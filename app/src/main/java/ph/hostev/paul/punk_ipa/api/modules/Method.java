@@ -1,21 +1,23 @@
 
 package ph.hostev.paul.punk_ipa.api.modules;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Method {
 
     @SerializedName("mash_temp")
     @Expose
-    private List<MashTemp> mashTemp = null;
+    private List<MashTemp> mashTemp = new ArrayList<MashTemp>();
     @SerializedName("fermentation")
     @Expose
     private Fermentation fermentation;
     @SerializedName("twist")
     @Expose
-    private Object twist;
+    private String twist;
 
     public List<MashTemp> getMashTemp() {
         return mashTemp;
@@ -33,11 +35,11 @@ public class Method {
         this.fermentation = fermentation;
     }
 
-    public Object getTwist() {
+    public String getTwist() {
         return twist;
     }
 
-    public void setTwist(Object twist) {
+    public void setTwist(String twist) {
         this.twist = twist;
     }
 

@@ -21,6 +21,7 @@ public class APIClient {
 
     private APIClient() {
         Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .setLenient()
                 .create();
 

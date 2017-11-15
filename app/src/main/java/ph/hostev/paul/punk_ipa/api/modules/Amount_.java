@@ -8,16 +8,16 @@ public class Amount_ {
 
     @SerializedName("value")
     @Expose
-    private Long value;
+    private Double value;
     @SerializedName("unit")
     @Expose
     private String unit;
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

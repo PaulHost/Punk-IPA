@@ -1,15 +1,17 @@
 
 package ph.hostev.paul.punk_ipa.api.modules;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PunkModule {
 
     @SerializedName("id")
     @Expose
-    private Long id;
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -30,25 +32,25 @@ public class PunkModule {
     private Double abv;
     @SerializedName("ibu")
     @Expose
-    private Long ibu;
+    private Integer ibu;
     @SerializedName("target_fg")
     @Expose
-    private Long targetFg;
+    private Integer targetFg;
     @SerializedName("target_og")
     @Expose
-    private Long targetOg;
+    private Integer targetOg;
     @SerializedName("ebc")
     @Expose
-    private Long ebc;
+    private Integer ebc;
     @SerializedName("srm")
     @Expose
-    private Long srm;
+    private Integer srm;
     @SerializedName("ph")
     @Expose
     private Double ph;
     @SerializedName("attenuation_level")
     @Expose
-    private Long attenuationLevel;
+    private Integer attenuationLevel;
     @SerializedName("volume")
     @Expose
     private Volume volume;
@@ -63,7 +65,7 @@ public class PunkModule {
     private Ingredients ingredients;
     @SerializedName("food_pairing")
     @Expose
-    private List<String> foodPairing = null;
+    private List<String> foodPairing = new ArrayList<String>();
     @SerializedName("brewers_tips")
     @Expose
     private String brewersTips;
@@ -71,11 +73,11 @@ public class PunkModule {
     @Expose
     private String contributedBy;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -127,43 +129,43 @@ public class PunkModule {
         this.abv = abv;
     }
 
-    public Long getIbu() {
+    public Integer getIbu() {
         return ibu;
     }
 
-    public void setIbu(Long ibu) {
+    public void setIbu(Integer ibu) {
         this.ibu = ibu;
     }
 
-    public Long getTargetFg() {
+    public Integer getTargetFg() {
         return targetFg;
     }
 
-    public void setTargetFg(Long targetFg) {
+    public void setTargetFg(Integer targetFg) {
         this.targetFg = targetFg;
     }
 
-    public Long getTargetOg() {
+    public Integer getTargetOg() {
         return targetOg;
     }
 
-    public void setTargetOg(Long targetOg) {
+    public void setTargetOg(Integer targetOg) {
         this.targetOg = targetOg;
     }
 
-    public Long getEbc() {
+    public Integer getEbc() {
         return ebc;
     }
 
-    public void setEbc(Long ebc) {
+    public void setEbc(Integer ebc) {
         this.ebc = ebc;
     }
 
-    public Long getSrm() {
+    public Integer getSrm() {
         return srm;
     }
 
-    public void setSrm(Long srm) {
+    public void setSrm(Integer srm) {
         this.srm = srm;
     }
 
@@ -175,11 +177,11 @@ public class PunkModule {
         this.ph = ph;
     }
 
-    public Long getAttenuationLevel() {
+    public Integer getAttenuationLevel() {
         return attenuationLevel;
     }
 
-    public void setAttenuationLevel(Long attenuationLevel) {
+    public void setAttenuationLevel(Integer attenuationLevel) {
         this.attenuationLevel = attenuationLevel;
     }
 

@@ -8,16 +8,16 @@ public class Volume {
 
     @SerializedName("value")
     @Expose
-    private Long value;
+    private Integer value;
     @SerializedName("unit")
     @Expose
     private String unit;
 
-    public Long getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

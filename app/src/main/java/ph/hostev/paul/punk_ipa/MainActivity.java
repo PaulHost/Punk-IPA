@@ -34,8 +34,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PunkModule>> call, Response<List<PunkModule>> response) {
                 if (response.isSuccessful()) {
+
                     beerList.addAll(response.body());
                     recyclerView.getAdapter().notifyDataSetChanged();
+                } else {
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 

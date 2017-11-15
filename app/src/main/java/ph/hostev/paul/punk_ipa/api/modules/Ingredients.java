@@ -1,18 +1,20 @@
 
 package ph.hostev.paul.punk_ipa.api.modules;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ingredients {
 
     @SerializedName("malt")
     @Expose
-    private List<Malt> malt = null;
+    private List<Malt> malt = new ArrayList<Malt>();
     @SerializedName("hops")
     @Expose
-    private List<Hop> hops = null;
+    private List<Hop> hops = new ArrayList<Hop>();
     @SerializedName("yeast")
     @Expose
     private String yeast;

@@ -11,7 +11,7 @@ public class MashTemp {
     private Temp temp;
     @SerializedName("duration")
     @Expose
-    private Long duration;
+    private Integer duration;
 
     public Temp getTemp() {
         return temp;
@@ -21,11 +21,11 @@ public class MashTemp {
         this.temp = temp;
     }
 
-    public Long getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Long duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 

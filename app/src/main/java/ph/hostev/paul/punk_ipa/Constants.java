@@ -5,7 +5,6 @@ public class Constants {
     /* URL */
     public static final String ROOT_URL = "https://api.punkapi.com/";
     public static final String BEER = "/v2/beers";
-    public static final String PAGE = "?page={page}";
 
     /* PARAMETERS for sort */
     public static final String ABV_GT = "abv_gt";
