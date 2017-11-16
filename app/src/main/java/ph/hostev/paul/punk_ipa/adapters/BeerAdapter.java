@@ -10,13 +10,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import ph.hostev.paul.punk_ipa.R;
-import ph.hostev.paul.punk_ipa.api.modules.PunkModule;
+import ph.hostev.paul.punk_ipa.beans.Beer;
 
 public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 
-    private List<PunkModule> beerList;
+    private List<Beer> beerList;
 
-    public BeerAdapter(List<PunkModule> beerList) {
+    public BeerAdapter(List<Beer> beerList) {
         this.beerList = beerList;
     }
 
@@ -28,7 +28,7 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PunkModule beer = beerList.get(position);
+        Beer beer = beerList.get(position);
         holder.name.setText(beer.getName());
         holder.tagline.setText(beer.getTagline());
         holder.brewed.setText(beer.getFirstBrewed());
