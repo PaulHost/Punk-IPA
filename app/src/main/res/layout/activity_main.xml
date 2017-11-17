@@ -6,14 +6,20 @@
     android:layout_height="match_parent"
     tools:context="ph.hostev.paul.punk_ipa.activities.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/beer_recycle_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="2dp"
-        tools:ignore="RtlHardcoded" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/beer_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="2dp"
+            tools:ignore="RtlHardcoded" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>
