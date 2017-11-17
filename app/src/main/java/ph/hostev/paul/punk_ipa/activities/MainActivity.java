@@ -1,6 +1,7 @@
 package ph.hostev.paul.punk_ipa.activities;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,7 @@ import ph.hostev.paul.punk_ipa.api.Callback;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 import ph.hostev.paul.punk_ipa.tools.NetworkTool;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private int pagimation = 1;
     List<Beer> beerList = new ArrayList<>();
@@ -24,48 +25,50 @@ public class MainActivity extends AppCompatActivity {
     BeerAdapter beerAdapter;
     LinearLayoutManager layoutManager;
     NetworkTool networkTool;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         networkTool = new NetworkTool();
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = findViewById(R.id.beer_recycle_view);
         beerAdapter = new BeerAdapter(beerList, this);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(beerAdapter);
-        if (networkTool.isInternetAvailable(this)) {
-            recyclerView.addOnScrollListener(scrollListener());
-            load();
-        } else {
-            fromDb();
-        }
+        load();
     }
 
     private void load() {
-        App.getAPI().get(pagimation, null, new Callback<List<Beer>>() {
-            @Override
-            public void onSuccess(final List<Beer> beers) {
-                recyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        beerList.addAll(beers);
-                        beerAdapter.notifyDataSetChanged();
-                        pagimation++;
-                    }
-                });
+        if (networkTool.isInternetAvailable(this)) {
+            recyclerView.addOnScrollListener(scrollListener());
+            App.getAPI().get(pagimation, null, new Callback<List<Beer>>() {
+                @Override
+                public void onSuccess(final List<Beer> beers) {
+                    recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            beerList.addAll(beers);
+                            beerAdapter.notifyDataSetChanged();
+                            pagimation++;
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+            });
+        } else {
+            try {
+                beerList.addAll(App.getDataBeer().queryForAll());
+                beerAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        });
-    }
-
-    private void fromDb() {
-        try {
-            beerList.addAll(App.getDataBeer().queryForAll());
-            beerAdapter.notifyDataSetChanged();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
     }
 
     RecyclerView.OnScrollListener scrollListener() {
@@ -83,5 +86,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    @Override
+    public void onRefresh() {
+        load();
     }
 }
