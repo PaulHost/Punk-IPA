@@ -3,6 +3,7 @@
     package="ph.hostev.paul.punk_ipa">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"

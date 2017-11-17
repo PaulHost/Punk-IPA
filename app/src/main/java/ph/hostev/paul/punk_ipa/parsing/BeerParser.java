@@ -4,9 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 
 public class BeerParser {
@@ -39,9 +41,11 @@ public class BeerParser {
                 beer.setBrewersTips(object.getString("brewers_tips"));
                 beer.setContributedBy(object.getString("contributed_by"));
 
+                App.getDataBeer().createOrUpdate(beer);
+
                 list.add(beer);
             }
-        } catch (JSONException e) {
+        } catch (JSONException | SQLException e) {
             e.printStackTrace();
         }
         return list;

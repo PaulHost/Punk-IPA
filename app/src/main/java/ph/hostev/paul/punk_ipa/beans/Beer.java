@@ -1,21 +1,46 @@
 package ph.hostev.paul.punk_ipa.beans;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import static ph.hostev.paul.punk_ipa.Constants.BEER_TABLE;
+
+
+@DatabaseTable(tableName = BEER_TABLE)
 public class Beer {
+    @DatabaseField(columnName = "id", id = true)
     private Integer id;
+    @DatabaseField(columnName = "name")
     private String name;
+    @DatabaseField(columnName = "tagline")
     private String tagline;
+    @DatabaseField(columnName = "first_brewed")
     private String firstBrewed;
+    @DatabaseField(columnName = "description")
     private String description;
+    @DatabaseField(columnName = "image_url")
     private String imageUrl;
+    @DatabaseField(columnName = "image_path")
+    private String imagePath;
+    @DatabaseField(columnName = "abv")
     private double abv;
+    @DatabaseField(columnName = "ibu")
     private double ibu;
+    @DatabaseField(columnName = "target_fg")
     private double targetFg;
+    @DatabaseField(columnName = "target_og")
     private double targetOg;
+    @DatabaseField(columnName = "ebc")
     private double ebc;
+    @DatabaseField(columnName = "srm")
     private double srm;
+    @DatabaseField(columnName = "ph")
     private double ph;
+    @DatabaseField(columnName = "attenuation_level")
     private double attenuationLevel;
+    @DatabaseField(columnName = "brewers_tips")
     private String brewersTips;
+    @DatabaseField(columnName = "contributer")
     private String contributedBy;
 
     public String getName() {
@@ -60,6 +85,14 @@ public class Beer {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public void setImageUrl(String imageUrl) {

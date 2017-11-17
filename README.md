@@ -21,6 +21,8 @@ An app on top of PUNK API: https://punkapi.com/documentation/v2
 2. Target SDK version: 26
 3. Gradle and Android Studio
 
-# used libraries
+# Used libraries
 
 ✓ Picasso
+
+✓ ORMLite
