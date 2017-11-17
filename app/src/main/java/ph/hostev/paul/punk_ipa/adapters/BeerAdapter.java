@@ -1,6 +1,7 @@
 package ph.hostev.paul.punk_ipa.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ph.hostev.paul.punk_ipa.R;
+import ph.hostev.paul.punk_ipa.activities.BeerActivity;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 
 public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
@@ -38,7 +40,6 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 
         Picasso.with(context)
                 .load(beer.getImageUrl())
-//                .memoryCache(new LruCache(24000))
                 .resize(50, 100)
                 .centerCrop()
                 .into(holder.beerCover);
@@ -49,6 +50,7 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
         holder.abv.setText(String.valueOf(beer.getAbv()));
         holder.ibu.setText(String.valueOf(beer.getIbu()));
         holder.ebc.setText(String.valueOf(beer.getEbc()));
+        holder.itemView.setOnClickListener(clickListener(position));
     }
 
     @Override
@@ -76,5 +78,17 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
             ibu = itemView.findViewById(R.id.ibu);
             ebc = itemView.findViewById(R.id.ebc);
         }
+    }
+
+    View.OnClickListener clickListener(final int position) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(
+                        new Intent(context, BeerActivity.class)
+                                .putExtra("id", beerList.get(position).getId())
+                );
+            }
+        };
     }
 }
