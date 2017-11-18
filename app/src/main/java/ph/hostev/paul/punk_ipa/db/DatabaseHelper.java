@@ -11,6 +11,7 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 import ph.hostev.paul.punk_ipa.beans.Beer;
+import ph.hostev.paul.punk_ipa.beans.Favorite;
 
 import static ph.hostev.paul.punk_ipa.Constants.DATABASE_NAME;
 import static ph.hostev.paul.punk_ipa.Constants.DATABASE_VERSION;
@@ -18,6 +19,7 @@ import static ph.hostev.paul.punk_ipa.Constants.DATABASE_VERSION;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<Beer, Integer> beer = null;
+    private Dao<Favorite, Integer> favorite = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,6 +29,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Beer.class);
+            TableUtils.createTable(connectionSource, Favorite.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,7 +38,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
+            // TODO: do proper table schema upgrade
             TableUtils.dropTable(connectionSource, Beer.class, true);
+            TableUtils.dropTable(connectionSource, Favorite.class, true);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,9 +52,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return beer;
     }
 
+    public Dao<Favorite, Integer> getFavoriteDao() throws SQLException {
+        if (favorite == null) favorite = getDao(Favorite.class);
+        return favorite;
+    }
+
     @Override
     public void close() {
         beer = null;
+        favorite = null;
         super.close();
     }
 }

@@ -1,7 +1,9 @@
 package ph.hostev.paul.punk_ipa.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,19 +14,29 @@ import java.sql.SQLException;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.beans.Beer;
+import ph.hostev.paul.punk_ipa.beans.Favorite;
 
 public class BeerActivity extends AppCompatActivity {
 
+    private boolean isFavorite = false;
     private Beer beer;
+    FloatingActionButton btnFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer);
+
+        btnFavorite = findViewById(R.id.btn_favorite);
+        btnFavorite.setOnClickListener(clickListener());
+
         try {
             beer = App.getDataBeer().queryForId(getIntent().getIntExtra("id", 1));
+            isFavorite = App.getFavoriteData().idExists(beer.getId());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            setIconFloatingActionButton();
         }
 
         Picasso.with(this).load(beer.getImageUrl())
@@ -38,5 +50,32 @@ public class BeerActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.ebc)).setText(String.valueOf(beer.getEbc()));
         ((TextView) findViewById(R.id.description)).setText(beer.getDescription());
 
+    }
+
+    private View.OnClickListener clickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (isFavorite) {
+                        App.getFavoriteData().delete(new Favorite(beer.getId()));
+                        btnFavorite.setImageDrawable(getDrawable(R.drawable.btn_star_big_off));
+                    } else {
+                        App.getFavoriteData().createOrUpdate(new Favorite(beer.getId()));
+                        btnFavorite.setImageDrawable(getDrawable(R.drawable.btn_star_big_on));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private void setIconFloatingActionButton() {
+        if (isFavorite) {
+            btnFavorite.setImageDrawable(getDrawable(R.drawable.btn_star_big_on));
+        } else {
+            btnFavorite.setImageDrawable(getDrawable(R.drawable.btn_star_big_off));
+        }
     }
 }

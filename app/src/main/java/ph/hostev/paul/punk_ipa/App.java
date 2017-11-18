@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import ph.hostev.paul.punk_ipa.api.HTTPsClient;
 import ph.hostev.paul.punk_ipa.beans.Beer;
+import ph.hostev.paul.punk_ipa.beans.Favorite;
 import ph.hostev.paul.punk_ipa.db.DatabaseHelper;
 
 public class App extends Application {
@@ -40,5 +41,9 @@ public class App extends Application {
 
     public static Dao<Beer, Integer> getDataBeer() throws SQLException {
         return helper.getBeerDao();
+    }
+
+    public static Dao<Favorite, Integer> getFavoriteData() throws SQLException {
+        return helper.getFavoriteDao();
     }
 }
