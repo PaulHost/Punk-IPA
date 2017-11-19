@@ -19,7 +19,7 @@ import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
 import ph.hostev.paul.punk_ipa.api.Callback;
 import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.tools.NetworkTool;
+import ph.hostev.paul.punk_ipa.utils.NetworkUtil;
 
 public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -29,7 +29,6 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
     RecyclerView recyclerView;
     BeerAdapter beerAdapter;
     LinearLayoutManager layoutManager;
-    NetworkTool networkTool;
     SwipeRefreshLayout swipeRefreshLayout;
 
     public static BeerListFragment newInstance() {
@@ -41,7 +40,6 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list_beer, container, false);
-        networkTool = new NetworkTool();
         swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = v.findViewById(R.id.beer_recycle_view);
@@ -55,7 +53,7 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
     private void load() {
-        if (networkTool.isInternetAvailable(getActivity())) {
+        if (NetworkUtil.isInternetAvailable(getActivity())) {
             recyclerView.addOnScrollListener(scrollListener());
             App.getAPI().get(pagimation, null, new Callback<List<Beer>>() {
                 @Override
