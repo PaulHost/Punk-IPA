@@ -11,10 +11,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.List;
 
+import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.activities.BeerActivity;
+import ph.hostev.paul.punk_ipa.api.ImageLoader;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 
 public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
@@ -38,8 +43,17 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 
         Beer beer = beerList.get(position);
 
+        if (beer.getImagePath() == null) {
+            try {
+                beer.setImagePath(ImageLoader.imageDownload(context, beer.getImageUrl()));
+                App.getDataBeer().update(beer);
+            } catch (SQLException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+
         Picasso.with(context)
-                .load(beer.getImageUrl())
+                .load(new File(beer.getImagePath()))
                 .resize(50, 100)
                 .centerCrop()
                 .into(holder.beerCover);

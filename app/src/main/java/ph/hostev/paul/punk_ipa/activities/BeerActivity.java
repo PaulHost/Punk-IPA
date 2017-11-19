@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.sql.SQLException;
 
 import ph.hostev.paul.punk_ipa.App;
@@ -39,8 +40,12 @@ public class BeerActivity extends AppCompatActivity {
             setIconFloatingActionButton();
         }
 
-        Picasso.with(this).load(beer.getImageUrl())
-                .into((ImageView) findViewById(R.id.beer_cover));
+        if (beer.getImagePath() == null) {
+            Picasso.with(this).load(beer.getImageUrl());
+        } else {
+            Picasso.with(this).load(new File(beer.getImagePath()))
+                    .into((ImageView) findViewById(R.id.beer_cover));
+        }
 
         ((TextView) findViewById(R.id.name)).setText(beer.getName());
         ((TextView) findViewById(R.id.tagline)).setText(beer.getTagline());

@@ -54,6 +54,7 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void load() {
         if (NetworkUtil.isInternetAvailable(getActivity())) {
+            if (pagimation == 1) beerList.clear();
             recyclerView.addOnScrollListener(scrollListener());
             App.getAPI().get(pagimation, null, new Callback<List<Beer>>() {
                 @Override
