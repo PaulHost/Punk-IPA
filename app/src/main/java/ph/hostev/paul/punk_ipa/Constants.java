@@ -12,12 +12,12 @@ public class Constants {
     /**
      * PARAMETERS for sort
      */
-    public static final String ABV_GT = "abv_gt";
-    public static final String ABV_LT = "abv_lt";
-    public static final String IBU_GT = "ibu_gt";
-    public static final String IBU_LT = "ibu_lt";
-    public static final String EBC_GT = "ebc_gt";
-    public static final String EBC_LT = "ebc_lt";
+    public static final String ABV_GT = "&abv_gt=";
+    public static final String ABV_LT = "&abv_lt=";
+    public static final String IBU_GT = "&ibu_gt=";
+    public static final String IBU_LT = "&ibu_lt=";
+    public static final String EBC_GT = "&ebc_gt=";
+    public static final String EBC_LT = "&ebc_lt=";
 
     /**
      * DATA BASE

@@ -7,36 +7,18 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import ph.hostev.paul.punk_ipa.beans.SortHeader;
-
-import static ph.hostev.paul.punk_ipa.Constants.ABV_GT;
-import static ph.hostev.paul.punk_ipa.Constants.ABV_LT;
-import static ph.hostev.paul.punk_ipa.Constants.EBC_GT;
-import static ph.hostev.paul.punk_ipa.Constants.EBC_LT;
-import static ph.hostev.paul.punk_ipa.Constants.IBU_GT;
-import static ph.hostev.paul.punk_ipa.Constants.IBU_LT;
-
 class HTTPs {
 
     private HttpsURLConnection conn;
     private InputStream mIs = null;
 
-    synchronized void get(final String url, SortHeader params, final Callback<String> pResponse) {
+    synchronized void get(final String url, final Callback<String> pResponse) {
 
         try {
             conn = (HttpsURLConnection) new URL(url).openConnection();
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
-
-            if (params != null) {
-                conn.setRequestProperty(ABV_GT, params.getAbv_gt());
-                conn.setRequestProperty(ABV_LT, params.getAbv_lt());
-                conn.setRequestProperty(IBU_GT, params.getIbu_gt());
-                conn.setRequestProperty(IBU_LT, params.getIbu_lt());
-                conn.setRequestProperty(EBC_GT, params.getEbc_gt());
-                conn.setRequestProperty(EBC_LT, params.getEbc_lt());
-            }
 
             int statusCode = conn.getResponseCode();
 

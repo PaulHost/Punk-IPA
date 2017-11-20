@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,17 +23,26 @@ import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
 import ph.hostev.paul.punk_ipa.api.Callback;
 import ph.hostev.paul.punk_ipa.beans.Beer;
+import ph.hostev.paul.punk_ipa.beans.SortParameters;
 import ph.hostev.paul.punk_ipa.utils.NetworkUtil;
 
 public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private int pagimation = 1;
     private static BeerListFragment beerListFragment;
-    List<Beer> beerList = new ArrayList<>();
+    private int mPagimation = 1;
+    private SortParameters mSortParams = null;
+    List<Beer> mBeerList = new ArrayList<>();
     RecyclerView recyclerView;
     BeerAdapter beerAdapter;
     LinearLayoutManager layoutManager;
     SwipeRefreshLayout swipeRefreshLayout;
+    RangeSeekBar rangeABV;
+    RangeSeekBar rangeIBU;
+    RangeSeekBar rangeEBC;
+    Button sortBtn;
+    TextView openSortBtn;
+    View layout;
+    boolean isSortOpen = false;
 
     public static BeerListFragment newInstance() {
         if (beerListFragment == null) beerListFragment = new BeerListFragment();
@@ -40,10 +53,18 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list_beer, container, false);
+        layout = v.findViewById(R.id.sort_layout);
+        openSortBtn = v.findViewById(R.id.open_sort_btn);
+        openSortBtn.setOnClickListener(openCloseClickListener());
+        rangeEBC = v.findViewById(R.id.range_ebc);
+        rangeABV = v.findViewById(R.id.range_abv);
+        rangeIBU = v.findViewById(R.id.range_ibu);
+        sortBtn = v.findViewById(R.id.sort_btn);
+        sortBtn.setOnClickListener(sortClickListener());
         swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = v.findViewById(R.id.beer_recycle_view);
-        beerAdapter = new BeerAdapter(beerList, getActivity());
+        beerAdapter = new BeerAdapter(mBeerList, getActivity());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(beerAdapter);
@@ -51,20 +72,37 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
         return v;
     }
 
+    private View.OnClickListener openCloseClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSortOpen) {
+                    openSortBtn.setText("V");
+                    isSortOpen = false;
+                    layout.setVisibility(View.GONE);
+                } else {
+                    openSortBtn.setText("X");
+                    isSortOpen = true;
+                    layout.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+    }
+
 
     private void load() {
         if (NetworkUtil.isInternetAvailable(getActivity())) {
-            if (pagimation == 1) beerList.clear();
+            if (mPagimation == 1) mBeerList.clear();
             recyclerView.addOnScrollListener(scrollListener());
-            App.getAPI().get(pagimation, null, new Callback<List<Beer>>() {
+            App.getAPI().get(mPagimation, mSortParams, new Callback<List<Beer>>() {
                 @Override
                 public void onSuccess(final List<Beer> beers) {
                     recyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            beerList.addAll(beers);
+                            mBeerList.addAll(beers);
                             beerAdapter.notifyDataSetChanged();
-                            pagimation++;
+                            mPagimation++;
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     });
@@ -72,10 +110,11 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
             });
         } else {
             try {
-                beerList.clear();
-                beerList.addAll(App.getDataBeer().queryForAll());
+                mBeerList.clear();
+                mBeerList.addAll(App.getDataBeer().queryForAll());
                 beerAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
+                mPagimation = 1;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -96,6 +135,23 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 if (layoutManager.getItemCount() - 5 == layoutManager.findLastVisibleItemPosition()) {
                     load();
                 }
+            }
+        };
+    }
+
+    private View.OnClickListener sortClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSortParams = new SortParameters();
+                mSortParams.setAbv_gt((Integer) rangeABV.getSelectedMaxValue());
+                mSortParams.setEbc_gt((Integer) rangeEBC.getSelectedMaxValue());
+                mSortParams.setIbu_gt((Integer) rangeIBU.getSelectedMaxValue());
+                mSortParams.setAbv_lt((Integer) rangeABV.getSelectedMinValue());
+                mSortParams.setEbc_lt((Integer) rangeEBC.getSelectedMinValue());
+                mSortParams.setIbu_lt((Integer) rangeIBU.getSelectedMinValue());
+                mPagimation = 1;
+                load();
             }
         };
     }
