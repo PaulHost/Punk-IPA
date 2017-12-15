@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ph.hostev.paul.punk_ipa.App;
@@ -56,7 +57,7 @@ public class FavariteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         Observable.fromCallable(callable())
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableObserver<List<Beer>>() {
 
                     @Override
