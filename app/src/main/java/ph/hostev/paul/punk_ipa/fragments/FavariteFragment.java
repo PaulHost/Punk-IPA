@@ -12,7 +12,12 @@ import android.view.ViewGroup;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
@@ -49,10 +54,32 @@ public class FavariteFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void update() {
-        mBeerList.clear();
-        mBeerList.addAll(beers());
-        beerAdapter.notifyDataSetChanged();
-        swipeRefreshLayout.setRefreshing(false);
+
+        Observable.fromCallable(callable())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<List<Beer>>() {
+
+                    @Override
+                    public void onNext(List<Beer> beers) {
+                        mBeerList.clear();
+                        mBeerList.addAll(beers);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mBeerList.clear();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        beerAdapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                });
+
     }
 
     @Override
@@ -61,21 +88,28 @@ public class FavariteFragment extends Fragment implements SwipeRefreshLayout.OnR
         update();
     }
 
-    private List<Beer> beers() {
-        List<Beer> aBeerList = new ArrayList<>();
-        Beer beer;
+    private Callable<List<Beer>> callable() {
+        return new Callable<List<Beer>>() {
 
-        try {
-            List<Favorite> fragments = App.getFavoriteData().queryForAll();
-            for (Favorite favorite : fragments) {
-                beer = App.getDataBeer().queryForId(favorite.getId());
-                aBeerList.add(beer);
+            List<Beer> aBeerList = new ArrayList<>();
+            Beer beer;
+
+            @Override
+            public List<Beer> call() throws Exception {
+
+                try {
+                    List<Favorite> fragments = App.getFavoriteData().queryForAll();
+                    for (Favorite favorite : fragments) {
+                        beer = App.getDataBeer().queryForId(favorite.getId());
+                        aBeerList.add(beer);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                return aBeerList;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return aBeerList;
+        };
     }
 
     @Override
