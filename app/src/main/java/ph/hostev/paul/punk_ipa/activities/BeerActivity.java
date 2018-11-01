@@ -21,7 +21,7 @@ public class BeerActivity extends AppCompatActivity {
 
     private boolean isFavorite = false;
     private Beer beer;
-    FloatingActionButton btnFavorite;
+    private FloatingActionButton btnFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
