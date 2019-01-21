@@ -15,11 +15,13 @@ public class App extends Application {
 
     private static HTTPsClient httpsClient = null;
     private static DatabaseHelper helper = null;
+    private static Application instance;
 
     @Override
     public void onCreate() {
         super.onCreate();
         helper = new DatabaseHelper(this);
+        instance = this;
     }
 
     @Override
@@ -32,6 +34,10 @@ public class App extends Application {
     protected void finalize() throws Throwable {
         super.finalize();
         if (helper != null) helper.close();
+    }
+
+    public static Application getInstance() {
+        return instance;
     }
 
     public static HTTPsClient getAPI() {
