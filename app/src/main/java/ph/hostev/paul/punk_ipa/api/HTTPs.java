@@ -1,5 +1,8 @@
 package ph.hostev.paul.punk_ipa.api;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,13 +10,17 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-class HTTPs {
+import io.reactivex.Single;
 
+abstract class HTTPs extends BeerParser {
+
+    @Nullable
     private HttpsURLConnection conn;
+    @Nullable
     private InputStream mIs = null;
 
-    synchronized void get(final String url, final Callback<String> pResponse) {
-
+    @NonNull
+    Single<String> get(@NonNull String url) {
         try {
             conn = (HttpsURLConnection) new URL(url).openConnection();
             conn.setReadTimeout(15000);
@@ -28,15 +35,10 @@ class HTTPs {
                 mIs = conn.getErrorStream();
             }
 
-            final String response = readInputStream(mIs);
+            return readInputStream(mIs);
 
-
-            if (pResponse != null) {
-                pResponse.onSuccess(response);
-
-            }
         } catch (IOException e) {
-            e.printStackTrace();
+            return Single.error(e);
         } finally {
             if (conn != null) {
                 conn.disconnect();
@@ -51,14 +53,15 @@ class HTTPs {
         }
     }
 
-    private String readInputStream(InputStream inputStream) throws IOException {
+    @NonNull
+    private Single<String> readInputStream(@NonNull InputStream inputStream) throws IOException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;
         while ((length = inputStream.read(buffer)) != -1) {
             result.write(buffer, 0, length);
         }
-        return result.toString("UTF-8");
+        return Single.just(result.toString("UTF-8"));
     }
 }
 
