@@ -17,10 +17,10 @@ import static ph.hostev.paul.punk_ipa.Constants.IBU_GT;
 import static ph.hostev.paul.punk_ipa.Constants.IBU_LT;
 import static ph.hostev.paul.punk_ipa.Constants.PAGE;
 
-public class HTTPsClient extends HTTPs {
+public class BeerApi extends HTTPs {
 
     @NonNull
-    public Single<List<Beer>> get(@Nullable Integer page, @Nullable SortParameters param) {
+    public Single<List<Beer>> getBeerList(@Nullable Integer page, @Nullable SortParameters param) {
         StringBuilder sb = new StringBuilder();
         sb.append(BEERS).append(PAGE).append(page);
         if (param != null) {

@@ -26,7 +26,6 @@ import io.reactivex.schedulers.Schedulers;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
-import ph.hostev.paul.punk_ipa.api.Callback;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 import ph.hostev.paul.punk_ipa.beans.SortParameters;
 import ph.hostev.paul.punk_ipa.utils.NetworkUtil;
@@ -101,7 +100,7 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
         if (NetworkUtil.isInternetAvailable(getActivity())) {
             if (mPagimation == 1) mBeerList.clear();
             recyclerView.addOnScrollListener(scrollListener());
-            App.getAPI().get(mPagimation, mSortParams)
+            App.getAPI().getBeerList(mPagimation, mSortParams)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(beers -> {
