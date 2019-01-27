@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.utils;
+package ph.hostev.paul.punk_ipa.common;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

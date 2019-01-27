@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.api;
+package ph.hostev.paul.punk_ipa.data.api;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +11,7 @@ import java.util.List;
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import ph.hostev.paul.punk_ipa.App;
-import ph.hostev.paul.punk_ipa.beans.Beer;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
 
 abstract class BeerParser {
     @NonNull

@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.activities;
+package ph.hostev.paul.punk_ipa.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,8 +14,8 @@ import java.sql.SQLException;
 
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
-import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.beans.Favorite;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
+import ph.hostev.paul.punk_ipa.data.model.Favorite;
 
 public class BeerActivity extends AppCompatActivity {
 

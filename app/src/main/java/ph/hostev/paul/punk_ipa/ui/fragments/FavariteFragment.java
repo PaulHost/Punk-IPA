@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.fragments;
+package ph.hostev.paul.punk_ipa.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,9 +20,9 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
-import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
-import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.beans.Favorite;
+import ph.hostev.paul.punk_ipa.ui.adapters.BeerAdapter;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
+import ph.hostev.paul.punk_ipa.data.model.Favorite;
 
 public class FavariteFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 

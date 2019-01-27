@@ -1,9 +1,9 @@
-package ph.hostev.paul.punk_ipa.beans;
+package ph.hostev.paul.punk_ipa.data.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import static ph.hostev.paul.punk_ipa.Constants.FAVORITE_TABLE;
+import static ph.hostev.paul.punk_ipa.common.Constants.FAVORITE_TABLE;
 
 @DatabaseTable(tableName = FAVORITE_TABLE)
 public class Favorite {

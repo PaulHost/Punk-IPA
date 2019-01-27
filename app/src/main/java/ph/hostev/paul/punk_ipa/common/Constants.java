@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa;
+package ph.hostev.paul.punk_ipa.common;
 
 public class Constants {
 

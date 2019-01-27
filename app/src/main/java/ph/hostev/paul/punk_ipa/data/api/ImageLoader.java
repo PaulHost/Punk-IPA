@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.api;
+package ph.hostev.paul.punk_ipa.data.api;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import ph.hostev.paul.punk_ipa.utils.NetworkUtil;
+import ph.hostev.paul.punk_ipa.common.NetworkUtil;
 
 public class ImageLoader {
 

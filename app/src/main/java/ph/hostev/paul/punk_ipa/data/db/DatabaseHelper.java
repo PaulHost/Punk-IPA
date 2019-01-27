@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.db;
+package ph.hostev.paul.punk_ipa.data.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,11 +10,11 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.beans.Favorite;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
+import ph.hostev.paul.punk_ipa.data.model.Favorite;
 
-import static ph.hostev.paul.punk_ipa.Constants.DATABASE_NAME;
-import static ph.hostev.paul.punk_ipa.Constants.DATABASE_VERSION;
+import static ph.hostev.paul.punk_ipa.common.Constants.DATABASE_NAME;
+import static ph.hostev.paul.punk_ipa.common.Constants.DATABASE_VERSION;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 

@@ -6,10 +6,10 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 
-import ph.hostev.paul.punk_ipa.api.BeerApi;
-import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.beans.Favorite;
-import ph.hostev.paul.punk_ipa.db.DatabaseHelper;
+import ph.hostev.paul.punk_ipa.data.api.BeerApi;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
+import ph.hostev.paul.punk_ipa.data.model.Favorite;
+import ph.hostev.paul.punk_ipa.data.db.DatabaseHelper;
 
 public class App extends Application {
 

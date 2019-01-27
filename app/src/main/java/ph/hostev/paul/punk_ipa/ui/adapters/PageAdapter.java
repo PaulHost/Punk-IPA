@@ -1,11 +1,11 @@
-package ph.hostev.paul.punk_ipa.adapters;
+package ph.hostev.paul.punk_ipa.ui.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import ph.hostev.paul.punk_ipa.fragments.BeerListFragment;
-import ph.hostev.paul.punk_ipa.fragments.FavariteFragment;
+import ph.hostev.paul.punk_ipa.ui.fragments.BeerListFragment;
+import ph.hostev.paul.punk_ipa.ui.fragments.FavariteFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
 

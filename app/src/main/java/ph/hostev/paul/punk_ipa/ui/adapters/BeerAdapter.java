@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.adapters;
+package ph.hostev.paul.punk_ipa.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,9 @@ import java.util.List;
 
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
-import ph.hostev.paul.punk_ipa.activities.BeerActivity;
-import ph.hostev.paul.punk_ipa.api.ImageLoader;
-import ph.hostev.paul.punk_ipa.beans.Beer;
+import ph.hostev.paul.punk_ipa.ui.activities.BeerActivity;
+import ph.hostev.paul.punk_ipa.data.api.ImageLoader;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
 
 public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 

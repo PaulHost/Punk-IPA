@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.api;
+package ph.hostev.paul.punk_ipa.data.api;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

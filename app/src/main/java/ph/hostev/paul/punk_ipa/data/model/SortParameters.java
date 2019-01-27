@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.beans;
+package ph.hostev.paul.punk_ipa.data.model;
 
 public class SortParameters {
 

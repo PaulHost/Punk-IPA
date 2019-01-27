@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.fragments;
+package ph.hostev.paul.punk_ipa.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -25,10 +25,10 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
-import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
-import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.beans.SortParameters;
-import ph.hostev.paul.punk_ipa.utils.NetworkUtil;
+import ph.hostev.paul.punk_ipa.ui.adapters.BeerAdapter;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
+import ph.hostev.paul.punk_ipa.data.model.SortParameters;
+import ph.hostev.paul.punk_ipa.common.NetworkUtil;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @SuppressLint("CheckResult")

@@ -1,21 +1,21 @@
-package ph.hostev.paul.punk_ipa.api;
+package ph.hostev.paul.punk_ipa.data.api;
 
 import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
-import ph.hostev.paul.punk_ipa.beans.Beer;
-import ph.hostev.paul.punk_ipa.beans.SortParameters;
+import ph.hostev.paul.punk_ipa.data.model.Beer;
+import ph.hostev.paul.punk_ipa.data.model.SortParameters;
 
-import static ph.hostev.paul.punk_ipa.Constants.ABV_GT;
-import static ph.hostev.paul.punk_ipa.Constants.ABV_LT;
-import static ph.hostev.paul.punk_ipa.Constants.BEERS;
-import static ph.hostev.paul.punk_ipa.Constants.EBC_GT;
-import static ph.hostev.paul.punk_ipa.Constants.EBC_LT;
-import static ph.hostev.paul.punk_ipa.Constants.IBU_GT;
-import static ph.hostev.paul.punk_ipa.Constants.IBU_LT;
-import static ph.hostev.paul.punk_ipa.Constants.PAGE;
+import static ph.hostev.paul.punk_ipa.common.Constants.ABV_GT;
+import static ph.hostev.paul.punk_ipa.common.Constants.ABV_LT;
+import static ph.hostev.paul.punk_ipa.common.Constants.BEERS;
+import static ph.hostev.paul.punk_ipa.common.Constants.EBC_GT;
+import static ph.hostev.paul.punk_ipa.common.Constants.EBC_LT;
+import static ph.hostev.paul.punk_ipa.common.Constants.IBU_GT;
+import static ph.hostev.paul.punk_ipa.common.Constants.IBU_LT;
+import static ph.hostev.paul.punk_ipa.common.Constants.PAGE;
 
 public class BeerApi extends HTTPs {
 
