@@ -6,14 +6,14 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 
-import ph.hostev.paul.punk_ipa.api.HTTPsClient;
+import ph.hostev.paul.punk_ipa.api.BeerApi;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 import ph.hostev.paul.punk_ipa.beans.Favorite;
 import ph.hostev.paul.punk_ipa.db.DatabaseHelper;
 
 public class App extends Application {
 
-    private static HTTPsClient httpsClient = null;
+    private static BeerApi httpsClient = null;
     private static DatabaseHelper helper = null;
 
     @Override
@@ -34,8 +34,8 @@ public class App extends Application {
         if (helper != null) helper.close();
     }
 
-    public static HTTPsClient getAPI() {
-        if (httpsClient == null) httpsClient = new HTTPsClient();
+    public static BeerApi getAPI() {
+        if (httpsClient == null) httpsClient = new BeerApi();
         return httpsClient;
     }
 

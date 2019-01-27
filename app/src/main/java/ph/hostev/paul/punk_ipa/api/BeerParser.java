@@ -1,4 +1,4 @@
-package ph.hostev.paul.punk_ipa.parsing;
+package ph.hostev.paul.punk_ipa.api;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,11 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Single;
+import io.reactivex.annotations.NonNull;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 
-public class BeerParser {
-    public List<Beer> beers(String json) {
+abstract class BeerParser {
+    @NonNull
+    Single<List<Beer>> beers(String json) {
 
         List<Beer> list = new ArrayList<>();
 
@@ -46,8 +49,8 @@ public class BeerParser {
                 list.add(beer);
             }
         } catch (JSONException | SQLException e) {
-            e.printStackTrace();
+            return Single.error(e);
         }
-        return list;
+        return Single.just(list);
     }
 }

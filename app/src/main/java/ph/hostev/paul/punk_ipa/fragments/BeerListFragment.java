@@ -1,5 +1,6 @@
 package ph.hostev.paul.punk_ipa.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,11 +26,12 @@ import io.reactivex.schedulers.Schedulers;
 import ph.hostev.paul.punk_ipa.App;
 import ph.hostev.paul.punk_ipa.R;
 import ph.hostev.paul.punk_ipa.adapters.BeerAdapter;
-import ph.hostev.paul.punk_ipa.api.Callback;
 import ph.hostev.paul.punk_ipa.beans.Beer;
 import ph.hostev.paul.punk_ipa.beans.SortParameters;
 import ph.hostev.paul.punk_ipa.utils.NetworkUtil;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
+@SuppressLint("CheckResult")
 public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static BeerListFragment beerListFragment;
@@ -98,22 +100,16 @@ public class BeerListFragment extends Fragment implements SwipeRefreshLayout.OnR
         if (NetworkUtil.isInternetAvailable(getActivity())) {
             if (mPagimation == 1) mBeerList.clear();
             recyclerView.addOnScrollListener(scrollListener());
-            App.getAPI().get(mPagimation, mSortParams, new Callback<List<Beer>>() {
-                @Override
-                public void onSuccess(final List<Beer> beers) {
-                    recyclerView.post(new Runnable() {
-                        @Override
-                        public void run() {
+            App.getAPI().getBeerList(mPagimation, mSortParams)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(beers -> {
                             mBeerList.addAll(beers);
                             beerAdapter.notifyDataSetChanged();
                             mPagimation++;
                             swipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                }
-            });
+                        });
         } else {
-
             Observable.fromCallable(callable())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
